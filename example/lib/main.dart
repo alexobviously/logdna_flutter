@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logdna/logdna.dart';
 import 'package:logdna/models/dna_line.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -51,36 +52,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  LogDNA logDna;
+  late LogDNA logDna;
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-        logDna = LogDNA(
-        apiKey: "YOUR_API_KEY",
-        appName: "APP_NAME",
-        hostName: "HOSTNAME");
+    logDna = LogDNA(
+      apiKey: "YOUR_API_KEY",
+      // appName: "APP_NAME",
+      hostName: "HOSTNAME",
+    );
   }
+
   int _counter = 0;
 
   void _incrementCounter() {
     logDna.log(DnaLine(
-      timestamp: DateTime.now().toUtc().millisecondsSinceEpoch.toString(),
-      line: "counter incremented",
-      level: DnaLevel.debug,
-      env: DnaEnv.production,
-      meta: {
-        "custom field":"custom value"
-      }
-    ));
+        timestamp: DateTime.now().toUtc().millisecondsSinceEpoch.toString(),
+        line: "counter incremented",
+        level: DnaLevel.debug,
+        env: DnaEnv.production,
+        meta: {"custom field": "custom value"}));
     DnaLine line = DnaLine(
-      timestamp: DateTime.now().toUtc().millisecondsSinceEpoch.toString(),
-      line: "counter incremented",
-      level: DnaLevel.debug,
-      env: DnaEnv.production,
-      meta: {
-        "custom field":"custom value"
-      }
-    );
+        timestamp: DateTime.now().toUtc().millisecondsSinceEpoch.toString(),
+        line: "counter incremented",
+        level: DnaLevel.debug,
+        env: DnaEnv.production,
+        meta: {"custom field": "custom value"});
 
     setState(() {
       // This call to setState tells the Flutter framework that something has
